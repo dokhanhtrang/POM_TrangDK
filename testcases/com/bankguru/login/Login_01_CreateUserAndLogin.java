@@ -37,6 +37,8 @@ public class Login_01_CreateUserAndLogin {
 		password = driver.findElement(By.xpath("//td[text()='Password :']/following-sibling::td")).getText();
 		System.out.println("User name:" + username + " Password: " + password);
 		driver.navigate().back();
+		
+		//test
 
 	}
 
