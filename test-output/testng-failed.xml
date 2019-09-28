@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
-  <test name="Default test(failed)">
+<suite name="Failed suite [Bank Guru]">
+  <parameter name="browser" value="chrome"/>
+  <test name="Run on FIREFOX browser(failed)">
+    <parameter name="browser" value="firefox"/>
     <classes>
-      <class name="com.bankguru.login.Login_01_CreateUserAndLogin">
+      <class name="com.bankguru.login.Login_01_CreateUserAndLogin_PageObject">
         <methods>
-          <include name="TC_Login01_CreateUser"/>
-          <include name="start"/>
+          <include name="beforeClass"/>
+          <include name="beforeClass"/>
           <include name="TC_Login02_LoginToApplication"/>
+          <include name="tearDown"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin -->
+      </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin_PageObject -->
     </classes>
-  </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+  </test> <!-- Run on FIREFOX browser(failed) -->
+  <test name="Run on CHROME browser(failed)">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.bankguru.login.Login_01_CreateUserAndLogin_PageObject">
+        <methods>
+          <include name="beforeClass"/>
+          <include name="beforeClass"/>
+          <include name="TC_Login02_LoginToApplication"/>
+          <include name="tearDown"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin_PageObject -->
+    </classes>
+  </test> <!-- Run on CHROME browser(failed) -->
+</suite> <!-- Failed suite [Bank Guru] -->

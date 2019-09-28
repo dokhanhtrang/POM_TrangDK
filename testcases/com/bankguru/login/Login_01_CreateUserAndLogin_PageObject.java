@@ -1,53 +1,55 @@
 package com.bankguru.login;
 
-import org.testng.annotations.Test;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import pages.RegisterPagePO;
+import pages.LoginPagePO;
+import pages.HomePagePO;
+import commons.AbstractTest;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Random;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.testng.annotations.AfterClass;
-
-public class Login_01_CreateUserAndLogin_PageObject {
+public class Login_01_CreateUserAndLogin_PageObject extends AbstractTest {
 	WebDriver driver;
-	String email = "khanhtrang" + randomNumber() + "@gmail.com";
-	String username, password, loginUrl;
-	@Parameters({"browser"})
+	private LoginPagePO loginPage;
+	private RegisterPagePO registerPage;
+	private HomePagePO homePage;
+	String username, password, loginUrl, email;
+
+	@Parameters({ "browser" })
 	@BeforeClass
 	public void beforeClass(String browser) {
-	
+		driver = openMulptyBrowser(browser);
+		//login
+		loginPage = new LoginPagePO(driver);
+		email = "khanhtrang" + randomNumber() + "@gmail.com";
 	}
 
 	@Test
 	public void TC_Login01_CreateUser() {
-		loginUrl = driver.getCurrentUrl();
-		driver.findElement(By.xpath("//a[text()='here']")).click();
-		driver.findElement(By.xpath("//input[@name='emailid']")).sendKeys(email);
-		driver.findElement(By.xpath("//input[@name='btnLogin']")).click();
-		assertTrue(driver.findElement(By.xpath("//h2[text()='Access details to demo site.']")).isDisplayed());
-		username = driver.findElement(By.xpath("//td[text()='User ID :']/following-sibling::td")).getText();
-		password = driver.findElement(By.xpath("//td[text()='Password :']/following-sibling::td")).getText();
-		System.out.println("User name:" + username + " Password: " + password);
-		driver.navigate().back();
-		
-		//test
-
+		loginUrl = loginPage.getLoginPageUrl();
+		loginPage.clickToHereLink();
+		//register
+		registerPage = new RegisterPagePO(driver);
+		registerPage.inputToEmailIDdTxt(email);
+		registerPage.clickToSubmitBtn();
+		username = 	registerPage.getUserIdInfor();
+		password = registerPage.getPasswordInfor();
 	}
 
 	@Test
 	public void TC_Login02_LoginToApplication() {
-		driver.get(loginUrl); // mngr217421 //nYzumEn
-		driver.findElement(By.xpath("//input[@name ='uid']")).sendKeys(username);
-		driver.findElement(By.xpath("//input[@name ='password']")).sendKeys(password);
-		driver.findElement(By.xpath("//input[@name ='btnLogin']")).click();
-		assertTrue(driver.findElement(By.xpath("//td[contains(text(),'" + username + "')]")).isDisplayed());
+		//login
+		registerPage.openLoginPage(loginUrl); 
+		loginPage = new LoginPagePO(driver);
+		loginPage.inputToUserNameTxt(username);
+		loginPage.inputToPasswordTxt(password);
+		loginPage.clickToLoginBtn();
+		//homepage
+		homePage = new HomePagePO(driver);
+		Assert.assertTrue(homePage.marquee());
 	}
 
 	@AfterClass
@@ -55,9 +57,5 @@ public class Login_01_CreateUserAndLogin_PageObject {
 		driver.quit();
 	}
 
-	public int randomNumber() {
-		Random random = new Random();
-		int number = random.nextInt(9999);
-		return number;
-	}
+	
 }

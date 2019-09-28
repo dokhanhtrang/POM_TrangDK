@@ -22,8 +22,8 @@ import java.awt.event.KeyEvent;
 
 
 public class AbstractPage {
-
-	public void openUrl(WebDriver driver, String url) {
+	
+	public void openAnyUrl(WebDriver driver, String url) {
 		driver.get(url);
 	}
 
@@ -89,7 +89,7 @@ public class AbstractPage {
 		return element.getAttribute(attribute);
 	}
 
-	public String getTextElement(WebDriver driver, String locator, String value) {
+	public String getTextElement(WebDriver driver, String locator) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		return element.getText();
 	}

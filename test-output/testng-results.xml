@@ -1,29 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results total="2" passed="2" failed="0" skipped="0">
+<testng-results total="4" passed="4" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2019-08-20T03:46:26Z" name="Suite" finished-at="2019-08-20T03:46:40Z" duration-ms="13578">
+  <suite started-at="2019-09-28T09:53:19Z" name="Bank Guru" finished-at="2019-09-28T09:54:00Z" duration-ms="40623">
     <groups>
     </groups>
-    <test started-at="2019-08-20T03:46:26Z" name="Test" finished-at="2019-08-20T03:46:40Z" duration-ms="13578">
-      <class name="com.bankguru.login.Login_01_CreateUserAndLogin">
-        <test-method is-config="true" signature="beforeClass()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin@8646db9]" started-at="2019-08-20T10:46:26Z" name="beforeClass" finished-at="2019-08-20T10:46:33Z" duration-ms="6967" status="PASS">
+    <test started-at="2019-09-28T09:53:19Z" name="Run on FIREFOX browser" finished-at="2019-09-28T09:53:41Z" duration-ms="22125">
+      <class name="com.bankguru.login.Login_01_CreateUserAndLogin_PageObject">
+        <test-method is-config="true" signature="beforeClass(java.lang.String)[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin_PageObject@2db7a79b]" started-at="2019-09-28T16:53:19Z" name="beforeClass" finished-at="2019-09-28T16:53:31Z" duration-ms="12093" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeClass -->
-        <test-method signature="TC_Login01_CreateUser()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin@8646db9]" started-at="2019-08-20T10:46:33Z" name="TC_Login01_CreateUser" finished-at="2019-08-20T10:46:36Z" duration-ms="3192" status="PASS">
+        <test-method signature="TC_Login01_CreateUser()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin_PageObject@2db7a79b]" started-at="2019-09-28T16:53:31Z" name="TC_Login01_CreateUser" finished-at="2019-09-28T16:53:36Z" duration-ms="4828" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TC_Login01_CreateUser -->
-        <test-method signature="TC_Login02_LoginToApplication()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin@8646db9]" started-at="2019-08-20T10:46:36Z" name="TC_Login02_LoginToApplication" finished-at="2019-08-20T10:46:39Z" duration-ms="3059" status="PASS">
+        <test-method signature="TC_Login02_LoginToApplication()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin_PageObject@2db7a79b]" started-at="2019-09-28T16:53:36Z" name="TC_Login02_LoginToApplication" finished-at="2019-09-28T16:53:41Z" duration-ms="4442" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TC_Login02_LoginToApplication -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin@8646db9]" started-at="2019-08-20T10:46:39Z" name="tearDown" finished-at="2019-08-20T10:46:40Z" duration-ms="346" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin_PageObject@2db7a79b]" started-at="2019-09-28T16:53:41Z" name="tearDown" finished-at="2019-09-28T16:53:41Z" duration-ms="738" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+      </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin_PageObject -->
+    </test> <!-- Run on FIREFOX browser -->
+    <test started-at="2019-09-28T09:53:42Z" name="Run on CHROME browser" finished-at="2019-09-28T09:54:00Z" duration-ms="18410">
+      <class name="com.bankguru.login.Login_01_CreateUserAndLogin_PageObject">
+        <test-method is-config="true" signature="beforeClass(java.lang.String)[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin_PageObject@42607a4f]" started-at="2019-09-28T16:53:42Z" name="beforeClass" finished-at="2019-09-28T16:53:51Z" duration-ms="9106" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClass -->
+        <test-method signature="TC_Login01_CreateUser()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin_PageObject@42607a4f]" started-at="2019-09-28T16:53:51Z" name="TC_Login01_CreateUser" finished-at="2019-09-28T16:53:55Z" duration-ms="4561" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TC_Login01_CreateUser -->
+        <test-method signature="TC_Login02_LoginToApplication()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin_PageObject@42607a4f]" started-at="2019-09-28T16:53:55Z" name="TC_Login02_LoginToApplication" finished-at="2019-09-28T16:53:59Z" duration-ms="3813" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TC_Login02_LoginToApplication -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.bankguru.login.Login_01_CreateUserAndLogin_PageObject@42607a4f]" started-at="2019-09-28T16:53:59Z" name="tearDown" finished-at="2019-09-28T16:54:00Z" duration-ms="928" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin_PageObject -->
+    </test> <!-- Run on CHROME browser -->
+  </suite> <!-- Bank Guru -->
 </testng-results>
