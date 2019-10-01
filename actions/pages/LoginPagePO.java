@@ -3,7 +3,9 @@ package pages;
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
+import commons.PageFactoryManager;
 import bankguru.LoginPageUI;
+//Descip action in page
 
 public class LoginPagePO extends AbstractPage {
 	WebDriver driver;
@@ -26,9 +28,10 @@ public class LoginPagePO extends AbstractPage {
 		sendKeyToElement(driver, LoginPageUI.PASSWORD_TXT, password);
 	}
 
-	public void clickToLoginBtn() {
+	public HomePagePO clickToLoginBtn() {
 		waitForElementVisible(driver, LoginPageUI.LOGIN_BTN);
 		clickToElement(driver, LoginPageUI.LOGIN_BTN);
+		return PageFactoryManager.getHomePage(driver);
 	}
 
 	public void clickToResetBtn() {
@@ -36,9 +39,10 @@ public class LoginPagePO extends AbstractPage {
 		clickToElement(driver, LoginPageUI.RESET_BTN);
 	}
 
-	public void clickToHereLink() {
+	public RegisterPagePO clickToHereLink() {
 		waitForElementVisible(driver, LoginPageUI.HERELINK);
 		clickToElement(driver, LoginPageUI.HERELINK);
+		return PageFactoryManager.getRegisterPage(driver);
 	}
 
 }

@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import bankguru.HomePageUI;
 import commons.AbstractPage;
+//Descip action in page
 
 public class HomePagePO extends AbstractPage {
 	WebDriver driver;

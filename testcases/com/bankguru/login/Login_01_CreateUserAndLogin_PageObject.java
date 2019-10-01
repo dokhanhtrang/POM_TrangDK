@@ -10,6 +10,7 @@ import pages.RegisterPagePO;
 import pages.LoginPagePO;
 import pages.HomePagePO;
 import commons.AbstractTest;
+import commons.PageFactoryManager;
 
 public class Login_01_CreateUserAndLogin_PageObject extends AbstractTest {
 	WebDriver driver;
@@ -22,33 +23,31 @@ public class Login_01_CreateUserAndLogin_PageObject extends AbstractTest {
 	@BeforeClass
 	public void beforeClass(String browser) {
 		driver = openMulptyBrowser(browser);
-		//login
-		loginPage = new LoginPagePO(driver);
+		// login
+		loginPage = PageFactoryManager.getLoginPage(driver);
 		email = "khanhtrang" + randomNumber() + "@gmail.com";
 	}
 
 	@Test
 	public void TC_Login01_CreateUser() {
 		loginUrl = loginPage.getLoginPageUrl();
-		loginPage.clickToHereLink();
-		//register
-		registerPage = new RegisterPagePO(driver);
+		// register
+		registerPage = loginPage.clickToHereLink();
 		registerPage.inputToEmailIDdTxt(email);
 		registerPage.clickToSubmitBtn();
-		username = 	registerPage.getUserIdInfor();
+		username = registerPage.getUserIdInfor();
 		password = registerPage.getPasswordInfor();
 	}
 
 	@Test
 	public void TC_Login02_LoginToApplication() {
-		//login
-		registerPage.openLoginPage(loginUrl); 
+		// login
+		loginPage = registerPage.openLoginPage(loginUrl);
 		loginPage = new LoginPagePO(driver);
 		loginPage.inputToUserNameTxt(username);
 		loginPage.inputToPasswordTxt(password);
-		loginPage.clickToLoginBtn();
-		//homepage
-		homePage = new HomePagePO(driver);
+		// homepage
+		homePage = loginPage.clickToLoginBtn();
 		Assert.assertTrue(homePage.marquee());
 	}
 
@@ -57,5 +56,4 @@ public class Login_01_CreateUserAndLogin_PageObject extends AbstractTest {
 		driver.quit();
 	}
 
-	
 }
