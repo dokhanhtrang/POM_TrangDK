@@ -1,7 +1,7 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
-
+import commons.Constants;
 import commons.AbstractPage;
 import commons.PageFactoryManager;
 import bankguru.LoginPageUI;
@@ -9,6 +9,7 @@ import bankguru.LoginPageUI;
 
 public class LoginPagePO extends AbstractPage {
 	WebDriver driver;
+	
 	
 	public LoginPagePO(WebDriver driver_) {
 		this.driver = driver_;
@@ -20,12 +21,12 @@ public class LoginPagePO extends AbstractPage {
 
 	public void inputToUserNameTxt(String userName) {
 		waitForElementVisible(driver, LoginPageUI.USERNAME_TXT);
-		sendKeyToElement(driver, LoginPageUI.USERNAME_TXT, userName);
+		sendKeyToElement(driver, LoginPageUI.USERNAME_TXT, Constants.USERNAME_TXT);
 	}
 
 	public void inputToPasswordTxt(String password) {
 		waitForElementVisible(driver, LoginPageUI.PASSWORD_TXT);
-		sendKeyToElement(driver, LoginPageUI.PASSWORD_TXT, password);
+		sendKeyToElement(driver, LoginPageUI.PASSWORD_TXT, Constants.PASSWORD_TXT);
 	}
 
 	public HomePagePO clickToLoginBtn() {

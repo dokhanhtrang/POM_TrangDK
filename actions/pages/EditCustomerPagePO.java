@@ -3,14 +3,13 @@ package pages;
 import org.openqa.selenium.WebDriver;
 
 import bankguru.HomePageUI;
-import bankguru.NewCustomerUI;
 import commons.AbstractPage;
 //Descip action in page
 
-public class HomePagePO extends AbstractPage {
+public class EditCustomerPagePO extends AbstractPage {
 	WebDriver driver;
 
-	public HomePagePO(WebDriver driver_) {
+	public EditCustomerPagePO(WebDriver driver_) {
 		this.driver = driver_;
 	}
 
@@ -18,6 +17,5 @@ public class HomePagePO extends AbstractPage {
 		waitForElementVisible(driver, HomePageUI.MARQUEE_TEXT);
 		return isControlDisplayed(driver, HomePageUI.MARQUEE_TEXT);
 	}
-	
 
 }

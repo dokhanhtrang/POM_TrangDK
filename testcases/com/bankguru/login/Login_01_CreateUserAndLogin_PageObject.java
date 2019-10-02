@@ -19,10 +19,10 @@ public class Login_01_CreateUserAndLogin_PageObject extends AbstractTest {
 	private HomePagePO homePage;
 	String username, password, loginUrl, email;
 
-	@Parameters({ "browser" })
+	@Parameters({ "browser", "url" })
 	@BeforeClass
-	public void beforeClass(String browser) {
-		driver = openMulptyBrowser(browser);
+	public void beforeClass(String browser, String url) {
+		driver = openMulptyBrowser(browser, url);
 		// login
 		loginPage = PageFactoryManager.getLoginPage(driver);
 		email = "khanhtrang" + randomNumber() + "@gmail.com";
