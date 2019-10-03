@@ -4,7 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,14 +17,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import bankguru.AbstractPageUI;
+import pages.DeleteCustomerPagePO;
+import pages.EditCustomerPagePO;
+import pages.HomePagePO;
+import pages.LoginPagePO;
+import pages.NewCustomerPO;
+
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
-
 public class AbstractPage {
-	
+
 	public void openAnyUrl(WebDriver driver, String url) {
 		driver.get(url);
 	}
@@ -56,10 +64,23 @@ public class AbstractPage {
 		element.click();
 	}
 
+	public void clickToElement(WebDriver driver, String locator, String value) {
+		locator = String.format(locator, value);
+		WebElement element = driver.findElement(By.xpath(locator));
+		element.click();
+	}
+
 	public void sendKeyToElement(WebDriver driver, String locator, String value) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.clear();
 		element.sendKeys(value);
+	}
+
+	public void sendKeyToElement(WebDriver driver, String locator, String value, String textValue) {
+		locator = String.format(locator, value);
+		WebElement element = driver.findElement(By.xpath(locator));
+		element.clear();
+		element.sendKeys(textValue);
 	}
 
 	public void selectItemInDropdown(WebDriver driver, String locator, String value) {
@@ -105,13 +126,33 @@ public class AbstractPage {
 		assertTrue(element.isSelected());
 	}
 
+	public void checkTheCheckbox(WebDriver driver, String locator, String value) {
+		locator = String.format(locator, value);
+		WebElement element = driver.findElement(By.xpath(locator));
+		element.click();
+		assertTrue(element.isSelected());
+	}
+
 	public void unCheckTheCheckbox(WebDriver driver, String locator) {
 		if (driver.findElement(By.xpath(locator)).isSelected()) {
 			driver.findElement(By.xpath(locator)).click();
 		}
 	}
 
+	public void unCheckTheCheckbox(WebDriver driver, String locator, String value) {
+		locator = String.format(locator, value);
+		if (driver.findElement(By.xpath(locator)).isSelected()) {
+			driver.findElement(By.xpath(locator)).click();
+		}
+	}
+
 	public boolean isControlDisplayed(WebDriver driver, String locator) {
+		WebElement element = driver.findElement(By.xpath(locator));
+		return element.isDisplayed();
+	}
+
+	public boolean isControlDisplayed(WebDriver driver, String locator, String value) {
+		locator = String.format(locator, value);
 		WebElement element = driver.findElement(By.xpath(locator));
 		return element.isDisplayed();
 	}
@@ -208,25 +249,25 @@ public class AbstractPage {
 				+ "typeof arguments[0].naturalWidth ! = 'undifined' && arguments[0].naturalWidth > 0", image);
 	}
 
-	public void uploadBySendkeys(WebDriver driver, String locate, String submitBtn, String filePath, String fileName) {
-		WebElement upload = driver.findElement(By.xpath(locate));
+	public void uploadBySendkeys(WebDriver driver, String locator, String submitBtn, String filePath, String fileName) {
+		WebElement upload = driver.findElement(By.xpath(locator));
 		upload.sendKeys(filePath);
 		driver.findElement(By.xpath(submitBtn)).click();
 		driver.findElement(By.xpath("//img[contains(@src,'" + fileName + "')]"));
 		checkAnyImgLoad(driver, driver.findElement(By.xpath("//img[contains(@src,'" + fileName + "')]")));
 	}
-	
-	 public void uploadMultipleBySendkeys(WebDriver driver, String locate, String[] listFileName) {
-	        WebElement upload = driver.findElement(By.xpath(locate));
-	        var fileNames = "";
-			for (var i = 0; i < listFileName.length; i++) {
-	          fileNames += listFileName[i] + "\n";
-	        }
-	        upload.sendKeys(fileNames);
-	    }
 
-	public void uploadMultipleBySendkeys(WebDriver driver, String locate, String fileName1, String fileName) {
-		WebElement upload = driver.findElement(By.xpath(locate));
+	public void uploadMultipleBySendkeys(WebDriver driver, String locator, String[] listFileName) {
+		WebElement upload = driver.findElement(By.xpath(locator));
+		var fileNames = "";
+		for (var i = 0; i < listFileName.length; i++) {
+			fileNames += listFileName[i] + "\n";
+		}
+		upload.sendKeys(fileNames);
+	}
+
+	public void uploadMultipleBySendkeys(WebDriver driver, String locator, String fileName1, String fileName) {
+		WebElement upload = driver.findElement(By.xpath(locator));
 		upload.sendKeys(fileName + "\n" + fileName1);
 	}
 
@@ -238,13 +279,13 @@ public class AbstractPage {
 		checkAnyImgLoad(driver, driver.findElement(By.xpath("//img[contains(@src,'" + fileName + "')]")));
 	}
 
-	public void uploadByRobot(WebDriver driver, String filePath, String inputLocate) throws Exception {
+	public void uploadByRobot(WebDriver driver, String filePath, String inputLocator) throws Exception {
 		// Specify the file location with extension
 		StringSelection select = new StringSelection(filePath);
 		// Copy to clipboard
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(select, null);
 		// Click
-		driver.findElement(By.xpath(inputLocate)).click();
+		driver.findElement(By.xpath(inputLocator)).click();
 		Robot robot = new Robot();
 		Thread.sleep(1000);
 		robot.keyPress(KeyEvent.VK_ENTER);
@@ -260,7 +301,7 @@ public class AbstractPage {
 
 	public Object excuteJsToBrowser(WebDriver driver, String javaSript) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-        return js.executeScript(javaSript);
+		return js.executeScript(javaSript);
 	}
 
 	public void jsClickToElement(WebDriver driver, String locator) {
@@ -271,7 +312,7 @@ public class AbstractPage {
 
 	public Object jsScrollToBottomPage(WebDriver driver) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-        return js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+		return js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 	}
 
 	public Object jsScrollToElement(WebDriver driver) {
@@ -297,29 +338,75 @@ public class AbstractPage {
 		return sText.contains(text);
 	}
 
-	public void waitForElementPresence(WebDriver driver, String locate) {
-		By by = By.xpath(locate);
+	public void waitForElementPresence(WebDriver driver, String locator) {
+		By by = By.xpath(locator);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.presenceOfElementLocated(by));
 	}
 
-	public void waitForElementVisible(WebDriver driver, String locate) {
-		By by = By.xpath(locate);
+	public void waitForElementVisible(WebDriver driver, String locator) {
+		By by = By.xpath(locator);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 
-	public void waitForElementClickable(WebDriver driver, String locate) {
-		By by = By.xpath(locate);
+	public void waitForElementVisible(WebDriver driver, String locator, String value) {
+		locator = String.format(locator, value);
+		By by = By.xpath(locator);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.elementToBeClickable(by));
-		driver.findElement(By.xpath(locate)).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 
-	public void waitForElementInvisible(WebDriver driver, String locate) {
-		By by = By.xpath(locate);
+	public void waitForElementClickable(WebDriver driver, String locator) {
+		By by = By.xpath(locator);
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.elementToBeClickable(by));
+		driver.findElement(By.xpath(locator)).click();
+	}
+
+	public void waitForElementInvisible(WebDriver driver, String locator) {
+		By by = By.xpath(locator);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+	}
+
+	public void acceptAlert(WebDriver driver) {
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+	}
+
+//Open Dynamic Page
+	public HomePagePO openHomePage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "Manager");
+		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "Manager");
+		return PageFactoryManager.getHomePage(driver);
+	}
+
+	public NewCustomerPO openNewCustomerPage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "New Customer");
+		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "New Customer");
+		return PageFactoryManager.getNewCusPage(driver);
+	}
+
+	public EditCustomerPagePO openEditCustomerPage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "Edit Customer");
+		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "Edit Customer");
+		return PageFactoryManager.getEditCusPage(driver);
+	}
+
+	public DeleteCustomerPagePO openDeleteCustomerPage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "Delete Customer");
+		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "Delete Customer");
+		return PageFactoryManager.getDelCusPage(driver);
+	}
+
+	// Click to logout page => open login page => neednt create logoutPagePO
+	public LoginPagePO openLogoutPage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "Log out");
+		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, "Log out");
+		acceptAlert(driver);
+		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.MINUTES);
+		return PageFactoryManager.getLoginPage(driver);
 	}
 
 }

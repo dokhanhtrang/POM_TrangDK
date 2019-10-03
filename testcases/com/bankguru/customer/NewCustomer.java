@@ -1,46 +1,70 @@
 package com.bankguru.customer;
 
-import org.testng.annotations.Test;
-
-import commons.AbstractTest;
-import commons.PageFactoryManager;
-import pages.HomePagePO;
-import pages.LoginPagePO;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
+import pages.RegisterPagePO;
+import pages.LoginPagePO;
+import pages.NewCustomerPO;
+import pages.EditCustomerPagePO;
+import pages.HomePagePO;
+import commons.AbstractTest;
+import commons.PageFactoryManager;
 
 public class NewCustomer extends AbstractTest {
 	WebDriver driver;
-	String email, userName, password;
 	private LoginPagePO loginPage;
+	private RegisterPagePO registerPage;
 	private HomePagePO homePage;
+	private NewCustomerPO newCusPage;
+	private EditCustomerPagePO editCusPage;
+	String username, password, loginUrl, email;
 
 	@Parameters({ "browser", "url" })
 	@BeforeClass
-	public void stepForAll(String browser, String url) {
+	public void beforeClass(String browser, String url) {
 		driver = openMulptyBrowser(browser, url);
-		// loginPage
+		// login
 		loginPage = PageFactoryManager.getLoginPage(driver);
-		loginPage.inputToUserNameTxt(userName);
-		loginPage.inputToPasswordTxt(password);
-		// homePage
-		homePage = loginPage.clickToLoginBtn();
-		Assert.assertTrue(homePage.marquee());
+		email = "khanhtrang" + randomNumber() + "@gmail.com";
 	}
 
 	@Test
-	public void TC01_NameCannotBeEmpty() {
+	public void TC_Login01_CreateUser() {
+		loginUrl = loginPage.getLoginPageUrl();
+		// register
+		registerPage = loginPage.clickToHereLink();
+		registerPage.inputToEmailIDdTxt(email);
+		registerPage.clickToSubmitBtn();
+		username = registerPage.getUserIdInfor();
+		password = registerPage.getPasswordInfor();
 	}
+
 	@Test
-	public void TC02_NameCannotBeNumeric() {
+	public void TC_Login02_LoginToApplication() {
+		// login
+		loginPage = registerPage.openLoginPage(loginUrl);
+		loginPage = new LoginPagePO(driver);
+		loginPage.inputToUserNameTxt(username);
+		loginPage.inputToPasswordTxt(password);
+		// homepage
+		homePage = loginPage.clickToLoginBtn();
+		verifyTrue(homePage.marquee());
+		newCusPage = homePage.openNewCustomerPage(driver);
+		System.out.println("open new");
+		editCusPage = newCusPage.openEditCustomerPage(driver);
+		System.out.println("open edit");
+		homePage = editCusPage.openHomePage(driver);
+		System.out.println("open home");
+		loginPage = homePage.openLogoutPage(driver);
+		System.out.println("login");
 	}
 
 	@AfterClass
 	public void tearDown() {
-		driver.quit();
+		closeBrowser(driver);
 	}
 
 }

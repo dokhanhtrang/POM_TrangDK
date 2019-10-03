@@ -5,6 +5,7 @@ import commons.PageFactoryManager;
 
 import bankguru.RegisterPageUI;
 import commons.AbstractPage;
+import commons.Constants;
 
 //Descip action in page
 
@@ -18,6 +19,10 @@ public class RegisterPagePO extends AbstractPage {
 	public void inputToEmailIDdTxt(String email) {
 		waitForElementVisible(driver, RegisterPageUI.EMAIL_ID_TXT);
 		sendKeyToElement(driver, RegisterPageUI.EMAIL_ID_TXT, email);
+	}
+	public String getEmailInfo(String value) {
+		waitForElementVisible(driver, RegisterPageUI.EMAIL_ID_TXT);
+		return getTextElement(driver, value);
 	}
 
 	public void clickToSubmitBtn() {

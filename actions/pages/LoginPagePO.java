@@ -9,8 +9,7 @@ import bankguru.LoginPageUI;
 
 public class LoginPagePO extends AbstractPage {
 	WebDriver driver;
-	
-	
+
 	public LoginPagePO(WebDriver driver_) {
 		this.driver = driver_;
 	}

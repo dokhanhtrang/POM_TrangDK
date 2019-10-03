@@ -1,33 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Bank Guru]">
-  <parameter name="browser" value="chrome"/>
+  <parameter name="browser" value="firefox"/>
+  <parameter name="url" value="http://demo.guru99.com/V4/"/>
   <test name="Run on FIREFOX browser(failed)">
     <parameter name="browser" value="firefox"/>
+    <parameter name="url" value="http://demo.guru99.com/V4/"/>
     <classes>
       <class name="com.bankguru.login.Login_01_CreateUserAndLogin_PageObject">
         <methods>
           <include name="beforeClass"/>
-          <include name="beforeClass"/>
           <include name="TC_Login02_LoginToApplication"/>
           <include name="tearDown"/>
-          <include name="tearDown"/>
+          <include name="TC_Login01_CreateUser"/>
         </methods>
       </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin_PageObject -->
     </classes>
   </test> <!-- Run on FIREFOX browser(failed) -->
-  <test name="Run on CHROME browser(failed)">
-    <parameter name="browser" value="chrome"/>
-    <classes>
-      <class name="com.bankguru.login.Login_01_CreateUserAndLogin_PageObject">
-        <methods>
-          <include name="beforeClass"/>
-          <include name="beforeClass"/>
-          <include name="TC_Login02_LoginToApplication"/>
-          <include name="tearDown"/>
-          <include name="tearDown"/>
-        </methods>
-      </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin_PageObject -->
-    </classes>
-  </test> <!-- Run on CHROME browser(failed) -->
 </suite> <!-- Failed suite [Bank Guru] -->
