@@ -3,13 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.bankguru.login.Login_01_CreateUserAndLogin">
+      <class name="com.bankguru.customer.NewCustomer">
         <methods>
           <include name="TC_Login01_CreateUser"/>
-          <include name="start"/>
           <include name="TC_Login02_LoginToApplication"/>
         </methods>
-      </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin -->
+      </class> <!-- com.bankguru.customer.NewCustomer -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

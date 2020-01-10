@@ -20,7 +20,6 @@ public class RegisterPagePO extends AbstractPage {
 		sendKeyToElement(driver, RegisterPageUI.EMAIL_ID_TXT, email);
 	}
 	public String getEmailInfo(String value) {
-//		waitForElementVisible(driver);
 		return getTextElement(driver, value);
 	}
 

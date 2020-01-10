@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
@@ -64,8 +65,9 @@ public class AbstractPage {
 		element.click();
 	}
 
-	public void clickToElement(WebDriver driver, String locator, String value) {
-		locator = String.format(locator, value);
+	// Rest parameter
+	public void clickToElement(WebDriver driver, String locator, String... value) {
+		locator = String.format(locator, (Object[]) value);
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.click();
 	}
@@ -74,6 +76,12 @@ public class AbstractPage {
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.clear();
 		element.sendKeys(value);
+	}
+
+	public void sendKeyToElementTab(WebDriver driver) {
+		Actions builder = new Actions(driver);
+		Action enter = builder.keyDown(Keys.TAB).build();
+		enter.perform();
 	}
 
 	public void sendKeyToElement(WebDriver driver, String locator, String value, String textValue) {
@@ -126,8 +134,8 @@ public class AbstractPage {
 		assertTrue(element.isSelected());
 	}
 
-	public void checkTheCheckbox(WebDriver driver, String locator, String value) {
-		locator = String.format(locator, value);
+	public void checkTheCheckbox(WebDriver driver, String locator, String... value) {
+		locator = String.format(locator, (Object[]) value);
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.click();
 		assertTrue(element.isSelected());
@@ -139,8 +147,8 @@ public class AbstractPage {
 		}
 	}
 
-	public void unCheckTheCheckbox(WebDriver driver, String locator, String value) {
-		locator = String.format(locator, value);
+	public void unCheckTheCheckbox(WebDriver driver, String locator, String... value) {
+		locator = String.format(locator, (Object[]) value);
 		if (driver.findElement(By.xpath(locator)).isSelected()) {
 			driver.findElement(By.xpath(locator)).click();
 		}

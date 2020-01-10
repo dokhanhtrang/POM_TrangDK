@@ -28,7 +28,7 @@ public class AbstractTest {
 		return driver;
 	}
 
-	protected void closeBrowser(WebDriver driver) {
+	protected void tearDown(WebDriver driver) {
 		// kill process
 		try {
 			String osName = System.getProperty("os.name").toLowerCase();
@@ -67,10 +67,9 @@ public class AbstractTest {
 		return pass;
 	}
 
-	protected boolean verifyTrue(boolean condition) {
+	public boolean verifyTrue(boolean condition) {
 		return verifyPass(condition);
 	}
-
 	private boolean verifyFailed(boolean condition) {
 		boolean pass = true;
 		try {

@@ -9,7 +9,7 @@
 		<parameter name="url" value="http://demo.guru99.com/V4/" />
 		<classes>
 			<class
-				name="com.bankguru.login.Login_01_CreateUserAndLogin_PageObject" />
+				name="com.bankguru.customer.NewCustomer" />
 		</classes>
 	</test>
 	<!-- <test name="Run on CHROME browser"> <parameter name ="browser" value 

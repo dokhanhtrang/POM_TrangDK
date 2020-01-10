@@ -16,6 +16,40 @@ public class NewCustomerPO extends AbstractPage {
 		sendKeyToElement(driver, NewCustomerUI.CUSTOMERNAME_TXT, cusName);
 	}
 
+	public void inputEmptyCustomerName() {
+		waitForElementPresence(driver, NewCustomerUI.CUSTOMERNAME_TXT);
+		sendKeyToElement(driver, NewCustomerUI.CUSTOMERNAME_TXT, "");
+	}
+	public void inputNumbericCustomerName() {
+		waitForElementPresence(driver, NewCustomerUI.CUSTOMERNAME_TXT);
+		sendKeyToElement(driver, NewCustomerUI.CUSTOMERNAME_TXT, "12");
+	}
+	public void inputScharCustomerName() {
+		waitForElementPresence(driver, NewCustomerUI.CUSTOMERNAME_TXT);
+		sendKeyToElement(driver, NewCustomerUI.CUSTOMERNAME_TXT, "@");
+	}
+	public void inputSpaceFCustomerName() {
+		waitForElementPresence(driver, NewCustomerUI.CUSTOMERNAME_TXT);
+		sendKeyToElement(driver, NewCustomerUI.CUSTOMERNAME_TXT, " ");
+	}
+
+	public void clickOut() {
+		clickToElement(driver, NewCustomerUI.CLICKOUT_LBL);
+		if (isControlDisplayed(driver, NewCustomerUI.CUSTOMERNAME_BLANK_TXT) == true) {
+			System.out.println("Pass case customer name musnt blank");
+		}
+		else if (isControlDisplayed(driver, NewCustomerUI.CUSTOMERNAME_NUMBERIC_TXT) == true) {
+			System.out.println("Pass case customer name isnt number ");
+		}
+		else if (isControlDisplayed(driver, NewCustomerUI.CUSTOMERNAME_SCHAR_TXT) == true) {
+			System.out.println("Pass case customer name cannot input special character");
+		}
+		else if (isControlDisplayed(driver, NewCustomerUI.CUSTOMERNAME_SPACEF_TXT) == true) {
+			System.out.println("Pass case customer cannot start from Space");
+		}
+		;
+	}
+
 	public void checkFGender() {
 		waitForElementPresence(driver, NewCustomerUI.GENDER_FEMALE_RADIO);
 		clickToElement(driver, NewCustomerUI.GENDER_FEMALE_RADIO);
@@ -28,7 +62,7 @@ public class NewCustomerPO extends AbstractPage {
 
 	public void inputToDOB(String dob) {
 		waitForElementPresence(driver, NewCustomerUI.DATE_OF_BIRTH_TXT);
-		sendKeyToElement(driver, NewCustomerUI.CUSTOMERNAME_TXT, dob);
+		sendKeyToElement(driver, NewCustomerUI.DATE_OF_BIRTH_TXT, dob);
 	}
 
 	public void inputToAdd(String add) {
@@ -64,6 +98,21 @@ public class NewCustomerPO extends AbstractPage {
 	public void inputToPassword(String pass) {
 		waitForElementPresence(driver, NewCustomerUI.PASSWORD_TXT);
 		sendKeyToElement(driver, NewCustomerUI.PASSWORD_TXT, pass);
+	}
+
+	public void clickToSubmitBtn() {
+		waitForElementPresence(driver, NewCustomerUI.SUBMIT_BTN);
+		clickToElement(driver, NewCustomerUI.SUBMIT_BTN);
+	}
+
+	public void clickToResetBtn() {
+		waitForElementPresence(driver, NewCustomerUI.RESET_BTN);
+		clickToElement(driver, NewCustomerUI.RESET_BTN);
+	}
+
+	public String getCustomerIdInfor() {
+		waitForElementVisible(driver, NewCustomerUI.CUSTOMER_ID_LBL);
+		return getTextElement(driver, NewCustomerUI.CUSTOMER_ID_LBL);
 	}
 
 }

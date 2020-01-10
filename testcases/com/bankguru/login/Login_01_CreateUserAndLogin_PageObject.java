@@ -38,7 +38,7 @@ public class Login_01_CreateUserAndLogin_PageObject extends AbstractTest {
 		// register
 		registerPage = loginPage.clickToHereLink();
 		registerPage.inputToEmailIDdTxt(email);
-		registerPage.getEmailInfo(email);
+//		registerPage.getEmailInfo(email);
 		System.out.println(email);
 		registerPage.clickToSubmitBtn();
 		username = registerPage.getUserIdInfor();
@@ -58,7 +58,6 @@ public class Login_01_CreateUserAndLogin_PageObject extends AbstractTest {
 		verifyTrue(homePage.marquee());
 		newCusPage = homePage.openNewCustomerPage(driver);
 		System.out.println("open new");
-
 		editCusPage = newCusPage.openEditCustomerPage(driver);
 		System.out.println("open edit");
 		homePage = editCusPage.openHomePage(driver);
@@ -69,7 +68,7 @@ public class Login_01_CreateUserAndLogin_PageObject extends AbstractTest {
 
 	@AfterClass
 	public void tearDown() {
-		closeBrowser(driver);
+		tearDown(driver);
 	}
 
 }

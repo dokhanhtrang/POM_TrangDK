@@ -7,14 +7,13 @@
     <parameter name="browser" value="firefox"/>
     <parameter name="url" value="http://demo.guru99.com/V4/"/>
     <classes>
-      <class name="com.bankguru.login.Login_01_CreateUserAndLogin_PageObject">
+      <class name="com.bankguru.customer.NewCustomer">
         <methods>
           <include name="beforeClass"/>
           <include name="TC_Login02_LoginToApplication"/>
           <include name="tearDown"/>
-          <include name="TC_Login01_CreateUser"/>
         </methods>
-      </class> <!-- com.bankguru.login.Login_01_CreateUserAndLogin_PageObject -->
+      </class> <!-- com.bankguru.customer.NewCustomer -->
     </classes>
   </test> <!-- Run on FIREFOX browser(failed) -->
 </suite> <!-- Failed suite [Bank Guru] -->

@@ -5,13 +5,15 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.RegisterPagePO;
-import pages.LoginPagePO;
-import pages.NewCustomerPO;
-import pages.EditCustomerPagePO;
-import pages.HomePagePO;
+
 import commons.AbstractTest;
 import commons.PageFactoryManager;
+import pages.EditCustomerPagePO;
+import pages.HomePagePO;
+import pages.LoginPagePO;
+import pages.NewCustomerPO;
+import pages.RegisterPagePO;
+import commons.Constants;
 
 public class NewCustomer extends AbstractTest {
 	WebDriver driver;
@@ -20,7 +22,7 @@ public class NewCustomer extends AbstractTest {
 	private HomePagePO homePage;
 	private NewCustomerPO newCusPage;
 	private EditCustomerPagePO editCusPage;
-	String username, password, loginUrl, email;
+	String username, password, loginUrl, email, cusName, dob, add, city, state, pin, no, idCus;
 
 	@Parameters({ "browser", "url" })
 	@BeforeClass
@@ -28,7 +30,14 @@ public class NewCustomer extends AbstractTest {
 		driver = openMulptyBrowser(browser, url);
 		// login
 		loginPage = PageFactoryManager.getLoginPage(driver);
-		email = "khanhtrang" + randomNumber() + "@gmail.com";
+		email = Constants.EMAIL_TXT;
+		cusName = Constants.CUSNAME_TXT;
+		dob = Constants.DOB_TXT;
+		city = Constants.CITY_TXT;
+		state = Constants.STATE_TXT;
+		pin = Constants.PIN_TXT;
+		no = Constants.NO_TXT;
+		add = Constants.ADD_TXT;
 	}
 
 	@Test
@@ -37,6 +46,7 @@ public class NewCustomer extends AbstractTest {
 		// register
 		registerPage = loginPage.clickToHereLink();
 		registerPage.inputToEmailIDdTxt(email);
+		System.out.println(email);
 		registerPage.clickToSubmitBtn();
 		username = registerPage.getUserIdInfor();
 		password = registerPage.getPasswordInfor();
@@ -53,18 +63,32 @@ public class NewCustomer extends AbstractTest {
 		homePage = loginPage.clickToLoginBtn();
 		verifyTrue(homePage.marquee());
 		newCusPage = homePage.openNewCustomerPage(driver);
-		System.out.println("open new");
-		editCusPage = newCusPage.openEditCustomerPage(driver);
-		System.out.println("open edit");
-		homePage = editCusPage.openHomePage(driver);
-		System.out.println("open home");
-		loginPage = homePage.openLogoutPage(driver);
-		System.out.println("login");
+		newCusPage.inputEmptyCustomerName();
+		newCusPage.clickOut();
+		newCusPage.inputNumbericCustomerName();
+		newCusPage.clickOut();
+		newCusPage.inputScharCustomerName();
+		newCusPage.clickOut();
+		newCusPage.inputSpaceFCustomerName();
+		newCusPage.clickOut();
+//		newCusPage.inputToCustomerName(cusName);
+//		newCusPage.checkFGender();
+//		newCusPage.inputToDOB(dob);
+//		newCusPage.inputToAdd(add);
+//		newCusPage.inputToCity(city);
+//		newCusPage.inputToState(state);
+//		newCusPage.inputToPIN(pin);
+//		newCusPage.inputToPhoneNo(no);
+//		newCusPage.inputToEmail(email);
+//		newCusPage.inputToPassword(password);
+//		newCusPage.clickToSubmitBtn();
+//		idCus = newCusPage.getCustomerIdInfor();
+		
 	}
 
 	@AfterClass
 	public void tearDown() {
-		closeBrowser(driver);
+		tearDown(driver);
 	}
 
 }
